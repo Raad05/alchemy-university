@@ -4,20 +4,20 @@ const { ganacheProvider, PRIVATE_KEY } = require("./config");
 // TODO: replace undefined with a new web3 provider
 const provider = new providers.Web3Provider(ganacheProvider);
 
-const wallet = new Wallet(PRIVATE_KEY);
+const wallet = new Wallet(PRIVATE_KEY, provider);
 
 async function sendEther({ value, to }) {
-  const rawTx = await wallet.signTransaction({
+  const nonce = wallet.getTransactionCount();
+
+  const tx = await wallet.sendTransaction({
     value,
     to,
     gasLimit: 0x5208,
     gasPrice: 0x3b9aca00,
+    nonce,
   });
 
-  // TODO: send the transaction and return the transaction promise
-  const response = provider.sendTransaction(rawTx);
-
-  return response;
+  return tx;
 }
 
 module.exports = sendEther;
