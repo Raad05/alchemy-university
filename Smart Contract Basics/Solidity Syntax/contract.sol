@@ -2,6 +2,8 @@
 pragma solidity ^0.8.4;
 
 contract Contract {
-    bool public a = true;
-    bool public b = false;
+    uint8 public a = 10;
+    uint16 public b = 300;
+
+    uint public sum = a + b;
 }
